@@ -1,4 +1,5 @@
 let Module;
+const size = 10;
 
 async function initializeEngine()
 {
@@ -18,29 +19,21 @@ function generateRandomArray(size)
 	return integers;
 }
 
-function bubbleSort()
+function startSorting()
 {
 	if (!Module) return;
 
-	let size = 10;
 	const array = generateRandomArray(size);
-
-	for (let i = 0; i < size; i++)
-	{
-		console.log(array[i]);
-	}
-
 	const input = new Module.InpVec();
 	for (let i = 0; i < size; i++)
 	{
 		input.push_back(array[i]);
 	}
-	const result = Module.bubbleSort(input);
-	console.log("Sorted array:");
 
-	for (let i = 0; i < size; i++)
+	const algorithm = document.getElementById("algo").value;
+	
+	if (algorithm === "bubbleSort")
 	{
-		const event = result.get(i);
-		console.log(event.step, event.eventDesc);
+		const result = Module.bubbleSort(input);
 	}
 }
