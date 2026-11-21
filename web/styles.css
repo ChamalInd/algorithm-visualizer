@@ -38,6 +38,12 @@ button
 	border: none;
 }
 
+input[type="range"]
+{
+	margin: 0 20px 20px 20px;
+	width: calc(100% - 40px);
+}
+
 #container
 {
 	width: 100%;
