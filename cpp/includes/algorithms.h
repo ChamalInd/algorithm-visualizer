@@ -8,8 +8,10 @@
 struct Events
 {
 	int step;
-	std::string eventDesc;
-	std::vector<int> array;
+	std::string desc;
+	int prev;
+	int cur;
+	int next;
 };
 
 std::vector<Events> bubbleSort(std::vector<int>& array);

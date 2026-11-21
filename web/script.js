@@ -53,6 +53,7 @@ async function startSorting()
 
 	sorted = false;
 
+	renderBars();
 	const input = new Module.InpVec();
 	for (let i = 0; i < size; i++)
 	{
@@ -68,13 +69,31 @@ async function startSorting()
 	}
 	
 	const stepCount = document.getElementById("stepCount");
-	const step= document.getElementById("step");
+	const step = document.getElementById("step");
+	const bars = document.getElementById("bar-container").children; 
 
 	for (let i = 0; i < result.size(); i++)
 	{
 		stepCount.innerHTML = `Step of ${i + 1} / ${result.get(result.size() - 1).step}`;
-		step.innerHTML = `${result.get(i).eventDesc}`;
-		await sleep(2000);
+		
+		if (result.get(i).prev >= 0) bars[result.get(i).prev].classList.remove("selected");
+		if (result.get(i).cur >= 0) bars[result.get(i).cur].classList.add("selected");
+		if (result.get(i).next >= 0) bars[result.get(i).next].classList.add("selected");
+
+		if (result.get(i).desc === "swap")
+		{
+			const temp = bars[result.get(i).cur].style.height;
+			bars[result.get(i).cur].style.height = bars[result.get(i).next].style.height;
+			bars[result.get(i).next].style.height = temp;
+		}
+
+		await sleep(60);
+	}
+
+	const remainning = bars.length - document.querySelectorAll(".selected").length;
+	for (let i = remainning - 1; i >= 0; i--)
+	{
+		bars[i].classList.add("selected");
 	}
 
 	sorted = true;

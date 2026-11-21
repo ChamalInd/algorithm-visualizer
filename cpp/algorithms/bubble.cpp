@@ -1,4 +1,4 @@
-#include "../includes/algorithms.h"
+#include "includes/algorithms.h"
 
 
 std::vector<Events> bubbleSort(std::vector<int>& array)
@@ -9,13 +9,15 @@ std::vector<Events> bubbleSort(std::vector<int>& array)
 	for (size_t i = 1; i < array.size(); i++)
 	{
 		bool swapped = false;
-		for (size_t j = 0; j < array.size() - i; j++)
+		size_t j;
+		for (j = 0; j < array.size() - i; j++)
 		{
 			Events newEvent;
 			newEvent.step = step++;
+			
 			if (array[j] > array[j + 1])
 			{
-				newEvent.eventDesc = "Swapped " + std::to_string(array[j]) + " with " + std::to_string(array[j + 1]);
+				newEvent.desc = "swap";
 				int temp = array[j];
 				array[j] = array[j + 1];;
 				array[j + 1] = temp;
@@ -23,11 +25,21 @@ std::vector<Events> bubbleSort(std::vector<int>& array)
 			}
 			else
 			{
-				newEvent.eventDesc = "No swaps " + std::to_string(array[j]) + " with " + std::to_string(array[j + 1]);
+				newEvent.desc = "noswap";
 			}
-			newEvent.array = array;
+			newEvent.prev = j > 0 ? j - 1 : 0;
+			newEvent.cur = j;
+			newEvent.next = j + 1;
 			events.push_back(newEvent);
 		}
+			
+		Events newEvent;
+		newEvent.step = step++;
+		newEvent.desc = "noswap";
+		newEvent.prev = j - 1;
+		newEvent.cur = -1;
+		newEvent.next = -1;
+		events.push_back(newEvent);
 		if (!swapped) break;
 	}
 

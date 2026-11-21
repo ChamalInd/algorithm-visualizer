@@ -4,8 +4,10 @@ EMSCRIPTEN_BINDINGS(module)
 {
 	emscripten::value_object<Events>("Events")
 		.field("step", &Events::step)
-		.field("eventDesc", &Events::eventDesc)
-		.field("array", &Events::array);
+		.field("desc", &Events::desc)
+		.field("prev", &Events::prev)
+		.field("cur", &Events::cur)
+		.field("next", &Events::next);
 
 	emscripten::register_vector<int>("InpVec");
 	emscripten::register_vector<Events>("OutVec");
