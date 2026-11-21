@@ -1,17 +1,13 @@
 #include "includes/algorithms.h"
 
-int main()
+EMSCRIPTEN_BINDINGS(module)
 {
-	std::vector<int> a = {5, 3, 8, 2};
-	std::vector<Events> events = algo::bubbleSort(a);
+	emscripten::value_object<Events>("Events")
+		.field("step", &Events::step)
+		.field("eventDesc", &Events::eventDesc)
+		.field("array", &Events::array);
 
-	for (Events e : events)
-	{
-		std::cout << e.step << ": " << std::left << std::setw(20) << e.eventDesc << " : ";
-		for (int i : e.array)
-		{
-			std::cout << i << " ";
-		}
-		std::cout << std::endl;
-	}
+	emscripten::register_vector<int>("InpVec");
+	emscripten::register_vector<Events>("OutVec");
+	emscripten::function("bubbleSort", &bubbleSort);
 }

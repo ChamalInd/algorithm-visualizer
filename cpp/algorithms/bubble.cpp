@@ -1,7 +1,7 @@
 #include "../includes/algorithms.h"
 
 
-std::vector<Events> algo::bubbleSort(std::vector<int>& array)
+std::vector<Events> bubbleSort(std::vector<int>& array)
 {
 	std::vector<Events> events;
 	int step = 1;

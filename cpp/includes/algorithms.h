@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <iomanip>
+#include <emscripten/bind.h>
 
 struct Events
 {
@@ -12,7 +12,5 @@ struct Events
 	std::vector<int> array;
 };
 
-namespace algo
-{
-	std::vector<Events> bubbleSort(std::vector<int>& array);
-};
+std::vector<Events> bubbleSort(std::vector<int>& array);
+
