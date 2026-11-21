@@ -28,15 +28,15 @@ std::vector<Events> bubbleSort(std::vector<int>& array)
 				newEvent.desc = "noswap";
 			}
 			newEvent.prev = j > 0 ? j - 1 : 0;
-			newEvent.cur = j;
-			newEvent.next = j + 1;
+			newEvent.cur = static_cast<int>(j);
+			newEvent.next = static_cast<int>(j + 1);
 			events.push_back(newEvent);
 		}
 			
 		Events newEvent;
 		newEvent.step = step++;
 		newEvent.desc = "noswap";
-		newEvent.prev = j - 1;
+		newEvent.prev = static_cast<int>(j - 1);
 		newEvent.cur = -1;
 		newEvent.next = -1;
 		events.push_back(newEvent);

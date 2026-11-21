@@ -1,6 +1,6 @@
 let Module;
-const size = 20;
 let array = [];
+let size = 0;
 let sorted = true;
 
 async function initializeEngine()
@@ -18,6 +18,7 @@ function sleep(ms)
 
 function generateRandomArray()
 {
+	size = Number(sizeSlider.value);
 	if (!sorted) return;
 	for (let i = 0; i < size; i++)
 	{
@@ -36,6 +37,7 @@ function renderBars()
 		const bar = document.createElement("div");
 		bar.classList.add("bar");
 		bar.style.height = "0px";
+		bar.style.width = `${20 / size * 30}px`;
 
 		container.appendChild(bar);
 		
@@ -44,6 +46,19 @@ function renderBars()
 		});
 	}
 }
+
+
+const speedSlider = document.getElementById("speed");
+const speedText = document.getElementById("speedText");
+speedSlider.addEventListener("input", () => {
+	speedText.innerText = `${Number(speedSlider.value)}`;
+});
+
+const sizeSlider = document.getElementById("size");
+const sizeText = document.getElementById("sizeText");
+sizeSlider.addEventListener("input", () => {
+	sizeText.innerText = `${Number(sizeSlider.value)}`;
+});
 
 async function startSorting()
 {
@@ -59,6 +74,8 @@ async function startSorting()
 	{
 		input.push_back(array[i]);
 	}
+
+	const delay = 2000 - ((Number(speedSlider.value) - 5) / (100 - 5)) * (2000 - 10);
 
 	const algorithm = document.getElementById("algo").value;
 	let result;
@@ -87,7 +104,7 @@ async function startSorting()
 			bars[result.get(i).next].style.height = temp;
 		}
 
-		await sleep(60);
+		await sleep(delay);
 	}
 
 	const remainning = bars.length - document.querySelectorAll(".selected").length;
