@@ -1,5 +1,5 @@
 let Module;
-const size = 10;
+const size = 20;
 
 async function initializeEngine()
 {
@@ -19,6 +19,22 @@ function generateRandomArray(size)
 	return integers;
 }
 
+function renderBars(array)
+{
+	const container = document.getElementById("bar-container");
+	container.innerHTML = "";
+
+	for (let i = 0; i < size; i++)
+	{
+		const bar = document.createElement("div");
+		bar.classList.add("bar");
+
+		bar.style.height = `${array[i] * 6}px`;
+		
+		container.appendChild(bar);
+	}
+}
+
 function startSorting()
 {
 	if (!Module) return;
@@ -31,6 +47,7 @@ function startSorting()
 	}
 
 	const algorithm = document.getElementById("algo").value;
+	renderBars(array);
 	
 	if (algorithm === "bubbleSort")
 	{
