@@ -15,7 +15,7 @@ body
 	height: auto;
 }
 
-label
+label, p
 {
 	display: block;
 	padding: 0 20px;
@@ -92,6 +92,11 @@ button
 	outline: none;
 	cursor: pointer;
 	color: #202020;
+}
+
+#output
+{
+	padding: 10px;
 }
 
 #bar-container

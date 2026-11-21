@@ -1,5 +1,6 @@
 let Module;
 const size = 20;
+let array = [];
 
 async function initializeEngine()
 {
@@ -9,17 +10,21 @@ async function initializeEngine()
 
 initializeEngine();
 
-function generateRandomArray(size)
+function sleep(ms)
 {
-	const integers = [];
-	for (let i = 0; i < size; i++)
-	{
-		integers[i] = Math.floor(Math.random() * 100) + 1;
-	}
-	return integers;
+	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function renderBars(array)
+function generateRandomArray()
+{
+	for (let i = 0; i < size; i++)
+	{
+		array[i] = Math.floor(Math.random() * 100) + 1;
+	}
+	renderBars();
+}
+
+function renderBars()
 {
 	const container = document.getElementById("bar-container");
 	container.innerHTML = "";
@@ -35,11 +40,11 @@ function renderBars(array)
 	}
 }
 
-function startSorting()
+async function startSorting()
 {
 	if (!Module) return;
+	if (array.length === 0) return;
 
-	const array = generateRandomArray(size);
 	const input = new Module.InpVec();
 	for (let i = 0; i < size; i++)
 	{
@@ -48,9 +53,20 @@ function startSorting()
 
 	const algorithm = document.getElementById("algo").value;
 	renderBars(array);
+	let result;
 	
 	if (algorithm === "bubbleSort")
 	{
-		const result = Module.bubbleSort(input);
+		result = Module.bubbleSort(input);
+	}
+	
+	const stepCount = document.getElementById("stepCount");
+	const step= document.getElementById("step");
+
+	for (let i = 0; i < result.size(); i++)
+	{
+		stepCount.innerHTML = `Step of ${i + 1} / ${result.get(result.size() - 1).step}`;
+		step.innerHTML = `${result.get(i).eventDesc}`;
+		await sleep(2000);
 	}
 }
