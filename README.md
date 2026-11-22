@@ -4,7 +4,7 @@ A web page that shows how sorting algorithms work in real time. The algorithms a
 
 The C++ code does the sorting and records every step as an event. The JavaScript replays those events on a set of bars, so what you see is exactly what the algorithm did.
 
-[Demo Video](assets/recording.mov)
+https://github.com/user-attachments/assets/a1a1f3d5-eb08-4ac6-b862-a0871a0c7060
 
 ## Algorithms
 
