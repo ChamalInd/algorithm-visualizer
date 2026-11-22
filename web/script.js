@@ -4,6 +4,7 @@ let size = 0;
 let sorted = true;
 let resetted = true;
 
+// initialize the c++ engine
 async function initializeEngine()
 {
 	Module = await createModule();
@@ -12,10 +13,24 @@ async function initializeEngine()
 
 initializeEngine();
 
+// helper function to sleep
 function sleep(ms)
 {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+// setting slider values
+const speedSlider = document.getElementById("speed");
+const speedText = document.getElementById("speedText");
+speedSlider.addEventListener("input", () => {
+	speedText.innerText = `${Number(speedSlider.value)}`;
+});
+
+const sizeSlider = document.getElementById("size");
+const sizeText = document.getElementById("sizeText");
+sizeSlider.addEventListener("input", () => {
+	sizeText.innerText = `${Number(sizeSlider.value)}`;
+});
 
 function generateRandomArray()
 {
@@ -32,7 +47,6 @@ function renderBars()
 {
 	if (!sorted) return;
 	const container = document.getElementById("bar-container");
-	const bars = [];
 	container.innerHTML = "";
 
 	for (let i = 0; i < size; i++)
@@ -43,7 +57,6 @@ function renderBars()
 		bar.style.width = `${20 / size * 30}px`;
 
 		container.appendChild(bar);
-		bars.push(bar);
 
 		requestAnimationFrame(() => {
 			bar.style.height = `${array[i] * 6}px`;
@@ -53,18 +66,10 @@ function renderBars()
 	resetted = true;
 }
 
-const speedSlider = document.getElementById("speed");
-const speedText = document.getElementById("speedText");
-speedSlider.addEventListener("input", () => {
-	speedText.innerText = `${Number(speedSlider.value)}`;
-});
+// display an array on load
+generateRandomArray();
 
-const sizeSlider = document.getElementById("size");
-const sizeText = document.getElementById("sizeText");
-sizeSlider.addEventListener("input", () => {
-	sizeText.innerText = `${Number(sizeSlider.value)}`;
-});
-
+// sorting happens
 async function startSorting()
 {
 	if (!Module) return;
@@ -74,46 +79,60 @@ async function startSorting()
 
 	sorted = false;
 	resetted = false;
-
-	const input = new Module.InpVec();
-	for (let i = 0; i < size; i++)
-	{
-		input.push_back(array[i]);
-	}
-
-	const delay = 2000 - ((Number(speedSlider.value) - 5) / (100 - 5)) * (2000 - 1);
+	
+	const newBtn = document.getElementById("new");
+	const resetBtn = document.getElementById("reset");
+	newBtn.disabled = true;
+	resetBtn.disabled = true;
 
 	const algorithm = document.getElementById("algo").value;
-	let result;
-	
-	if (algorithm === "bubbleSort")
-	{
-		result = Module.bubbleSort(input);
-	}
-	
 	const bars = document.getElementById("bar-container").children; 
-
-	for (let i = 0; i < result.size(); i++)
+	const delay = 2000 - ((Number(speedSlider.value) - 5) / (100 - 5)) * (2000 - 1);
+	
+	try
 	{
-		if (result.get(i).prev >= 0) bars[result.get(i).prev].classList.remove("selected");
-		if (result.get(i).cur >= 0) bars[result.get(i).cur].classList.add("selected");
-		if (result.get(i).next >= 0) bars[result.get(i).next].classList.add("selected");
-
-		if (result.get(i).desc === "swap")
+		const input = new Module.InpVec();
+		for (let i = 0; i < size; i++)
 		{
-			const temp = bars[result.get(i).cur].style.height;
-			bars[result.get(i).cur].style.height = bars[result.get(i).next].style.height;
-			bars[result.get(i).next].style.height = temp;
+			input.push_back(array[i]);
 		}
 
-		await sleep(delay);
-	}
+		let result;
+		
+		if (algorithm === "bubbleSort")
+		{
+			result = Module.bubbleSort(input);
+		}
 
-	const remainning = bars.length - document.querySelectorAll(".selected").length;
-	for (let i = remainning - 1; i >= 0; i--)
+		for (let i = 0; i < result.size(); i++)
+		{
+			const e = result.get(i);
+			if (e.prev >= 0) bars[e.prev].classList.remove("selected");
+			if (e.cur >= 0) bars[e.cur].classList.add("selected");
+			if (e.next >= 0) bars[e.next].classList.add("selected");
+
+			if (result.get(i).desc === "swap")
+			{
+				const temp = bars[e.cur].style.height;
+				bars[e.cur].style.height = bars[e.next].style.height;
+				bars[e.next].style.height = temp;
+			}
+
+			await sleep(delay);
+		}
+
+		const remaining = bars.length - document.querySelectorAll(".selected").length;
+		for (let i = remaining - 1; i >= 0; i--)
+		{
+			bars[i].classList.add("selected");
+		}
+	}
+	finally
 	{
-		bars[i].classList.add("selected");
+		sorted = true;
+		input.delete();
+		result.delete();
+		newBtn.disabled = false;
+		resetBtn.disabled = false;
 	}
-
-	sorted = true;
 }
