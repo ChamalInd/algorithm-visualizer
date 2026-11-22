@@ -128,6 +128,10 @@ async function startSorting()
 		{
 			result = Module.selectionSort(input);
 		}
+		else if (algorithm === "insertionSort")
+		{
+			result = Module.insertionSort(input);
+		}
 
 		for (let i = 0; i < result.size(); i++)
 		{

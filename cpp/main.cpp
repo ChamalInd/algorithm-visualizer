@@ -13,6 +13,7 @@ EMSCRIPTEN_BINDINGS(module)
 	emscripten::register_vector<Events>("OutVec");
 	emscripten::function("bubbleSort", &bubbleSort);
 	emscripten::function("selectionSort", &selectionSort);
+	emscripten::function("insertionSort", &insertionSort);
 }
 /*
 int main()
