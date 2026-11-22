@@ -3,6 +3,8 @@ let array = [];
 let size = 0;
 let sorted = true;
 let resetted = true;
+let wakeUp = null;
+let stop = false;
 
 // initialize the c++ engine
 async function initializeEngine()
@@ -16,7 +18,13 @@ initializeEngine();
 // helper function to sleep
 function sleep(ms)
 {
-	return new Promise(resolve => setTimeout(resolve, ms));
+	return new Promise(resolve => {
+		const t = setTimeout(resolve, ms);
+		wakeUp = () => {
+			clearTimeout(t);
+			resolve();
+		}; 
+	});
 }
 
 // setting slider values
@@ -69,6 +77,13 @@ function renderBars()
 // display an array on load
 generateRandomArray();
 
+function stopSorting()
+{
+	if (sorted) return;
+	stop = true;
+	if (wakeUp) wakeUp();
+}
+
 // sorting happens
 async function startSorting()
 {
@@ -79,11 +94,16 @@ async function startSorting()
 
 	sorted = false;
 	resetted = false;
+	stop = false;
 	
 	const newBtn = document.getElementById("new");
 	const resetBtn = document.getElementById("reset");
+	const stopBtn = document.getElementById("stop");
+	const sortBtn = document.getElementById("sort");
 	newBtn.disabled = true;
+	stopBtn.disabled = false;
 	resetBtn.disabled = true;
+	sortBtn.disabled = true;
 
 	const algorithm = document.getElementById("algo").value;
 	const bars = document.getElementById("bar-container").children; 
@@ -124,17 +144,24 @@ async function startSorting()
 			}
 
 			await sleep(delay);
+			if (stop) break;
 		}
 
-		for (let i = 0; i < bars.length; i++)
+		if (!stop)
 		{
-			bars[i].classList.add("selected");
+			for (let i = 0; i < bars.length; i++)
+			{
+				bars[i].classList.add("selected");
+			}
 		}
 	}
 	finally
 	{
 		sorted = true;
+		stop = false;
 		newBtn.disabled = false;
+		sortBtn.disabled = false;
+		stopBtn.disabled = true;
 		resetBtn.disabled = false;
 		input.delete();
 		if (result) result.delete();
