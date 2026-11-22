@@ -4,7 +4,12 @@ let size = 0;
 let sorted = true;
 let resetted = true;
 let wakeUp = null;
-let stop = false;
+let stopSignal = false;
+
+const newBtn = document.getElementById("new");
+const resetBtn = document.getElementById("reset");
+const stopBtn = document.getElementById("stop");
+const sortBtn = document.getElementById("sort");
 
 // initialize the c++ engine
 async function initializeEngine()
@@ -54,6 +59,7 @@ function generateRandomArray()
 function renderBars()
 {
 	if (!sorted) return;
+	sortBtn.disabled = false;
 	const container = document.getElementById("bar-container");
 	container.innerHTML = "";
 
@@ -80,7 +86,7 @@ generateRandomArray();
 function stopSorting()
 {
 	if (sorted) return;
-	stop = true;
+	stopSignal = true;
 	if (wakeUp) wakeUp();
 }
 
@@ -94,12 +100,8 @@ async function startSorting()
 
 	sorted = false;
 	resetted = false;
-	stop = false;
+	stopSignal = false;
 	
-	const newBtn = document.getElementById("new");
-	const resetBtn = document.getElementById("reset");
-	const stopBtn = document.getElementById("stop");
-	const sortBtn = document.getElementById("sort");
 	newBtn.disabled = true;
 	stopBtn.disabled = false;
 	resetBtn.disabled = true;
@@ -148,10 +150,10 @@ async function startSorting()
 			}
 
 			await sleep(delay);
-			if (stop) break;
+			if (stopSignal) break;
 		}
 
-		if (!stop)
+		if (!stopSignal)
 		{
 			for (let i = 0; i < bars.length; i++)
 			{
@@ -162,9 +164,8 @@ async function startSorting()
 	finally
 	{
 		sorted = true;
-		stop = false;
+		stopSignal = false;
 		newBtn.disabled = false;
-		sortBtn.disabled = false;
 		stopBtn.disabled = true;
 		resetBtn.disabled = false;
 		input.delete();

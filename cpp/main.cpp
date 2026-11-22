@@ -15,9 +15,3 @@ EMSCRIPTEN_BINDINGS(module)
 	emscripten::function("selectionSort", &selectionSort);
 	emscripten::function("insertionSort", &insertionSort);
 }
-/*
-int main()
-{
-	std::vector<int> arr = {10, 5, 12, 54, 23, 55};
-	std::vector<Events> events = selectionSort(arr);
-}*/
