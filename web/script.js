@@ -138,6 +138,10 @@ async function startSorting()
 		{
 			result = Module.quickSort(input);
 		}
+		else if (algorithm === "mergeSort")
+		{
+			result = Module.mergeSort(input);
+		}
 
 		for (let i = 0; i < result.size(); i++)
 		{
@@ -151,6 +155,10 @@ async function startSorting()
 				const temp = bars[e.cur].style.height;
 				bars[e.cur].style.height = bars[e.next].style.height;
 				bars[e.next].style.height = temp;
+			}
+			else if (e.desc === "set")
+			{
+				bars[e.cur].style.height = `${e.val}%`;
 			}
 
 			await sleep(delay);

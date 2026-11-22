@@ -7,7 +7,8 @@ EMSCRIPTEN_BINDINGS(module)
 		.field("desc", &Events::desc)
 		.field("prev", &Events::prev)
 		.field("cur", &Events::cur)
-		.field("next", &Events::next);
+		.field("next", &Events::next)
+		.field("val", &Events::val);
 
 	emscripten::register_vector<int>("InpVec");
 	emscripten::register_vector<Events>("OutVec");
@@ -15,4 +16,5 @@ EMSCRIPTEN_BINDINGS(module)
 	emscripten::function("selectionSort", &selectionSort);
 	emscripten::function("insertionSort", &insertionSort);
 	emscripten::function("quickSort", &quickSort);
+	emscripten::function("mergeSort", &mergeSort);
 }
