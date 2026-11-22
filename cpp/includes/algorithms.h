@@ -15,4 +15,5 @@ struct Events
 };
 
 std::vector<Events> bubbleSort(std::vector<int>& array);
+std::vector<Events> selectionSort(std::vector<int>& array);
 

@@ -1,6 +1,5 @@
 #include "includes/algorithms.h"
 
-
 std::vector<Events> bubbleSort(std::vector<int>& array)
 {
 	std::vector<Events> events;

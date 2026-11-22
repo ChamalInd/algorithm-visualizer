@@ -12,4 +12,11 @@ EMSCRIPTEN_BINDINGS(module)
 	emscripten::register_vector<int>("InpVec");
 	emscripten::register_vector<Events>("OutVec");
 	emscripten::function("bubbleSort", &bubbleSort);
+	emscripten::function("selectionSort", &selectionSort);
 }
+/*
+int main()
+{
+	std::vector<int> arr = {10, 5, 12, 54, 23, 55};
+	std::vector<Events> events = selectionSort(arr);
+}*/

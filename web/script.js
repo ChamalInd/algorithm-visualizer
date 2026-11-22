@@ -89,19 +89,24 @@ async function startSorting()
 	const bars = document.getElementById("bar-container").children; 
 	const delay = 2000 - ((Number(speedSlider.value) - 5) / (100 - 5)) * (2000 - 1);
 	
+	const input = new Module.InpVec();
+	let result;
+
 	try
 	{
-		const input = new Module.InpVec();
 		for (let i = 0; i < size; i++)
 		{
 			input.push_back(array[i]);
 		}
 
-		let result;
 		
 		if (algorithm === "bubbleSort")
 		{
 			result = Module.bubbleSort(input);
+		}
+		else if (algorithm === "selectionSort")
+		{
+			result = Module.selectionSort(input);
 		}
 
 		for (let i = 0; i < result.size(); i++)
@@ -121,8 +126,7 @@ async function startSorting()
 			await sleep(delay);
 		}
 
-		const remaining = bars.length - document.querySelectorAll(".selected").length;
-		for (let i = remaining - 1; i >= 0; i--)
+		for (let i = 0; i < bars.length; i++)
 		{
 			bars[i].classList.add("selected");
 		}
