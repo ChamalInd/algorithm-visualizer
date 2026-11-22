@@ -4,7 +4,6 @@ std::vector<Events> selectionSort(std::vector<int>& array)
 {
 	std::vector<Events> events;
 	int step = 1;
-	int last_index = -1;
 	
 	for (size_t i = 0; i < array.size() - 1; i++)
 	{
@@ -33,7 +32,7 @@ std::vector<Events> selectionSort(std::vector<int>& array)
 		newEvent.desc = "noswap";
 		newEvent.prev = static_cast<int>(j - 1);
 		newEvent.cur = static_cast<int>(i);
-		newEvent.next = static_cast<int>(index);
+		newEvent.next = index;
 		
 		if (index != static_cast<int>(i))
 		{
@@ -41,13 +40,12 @@ std::vector<Events> selectionSort(std::vector<int>& array)
 			array[i] = array[index];
 			array[index] = temp;
 			newEvent.desc = "swap";
-			last_index = index;
 		}
 		events.push_back(newEvent);
 		
 		newEvent.step = step++;
 		newEvent.desc = "noswap";
-		newEvent.prev = last_index;
+		newEvent.prev = (index != static_cast<int>(i)) ? index : -1;
 		newEvent.cur = -1;
 		newEvent.next = -1;
 		events.push_back(newEvent);

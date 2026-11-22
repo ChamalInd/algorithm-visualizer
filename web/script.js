@@ -54,12 +54,12 @@ function renderBars()
 		const bar = document.createElement("div");
 		bar.classList.add("bar");
 		bar.style.height = "0px";
-		bar.style.width = `${20 / size * 30}px`;
+		bar.style.width = `${100 / size}%`;
 
 		container.appendChild(bar);
 
 		requestAnimationFrame(() => {
-			bar.style.height = `${array[i] * 6}px`;
+			bar.style.height = `${array[i]}%`;
 		});
 		
 	}
@@ -116,7 +116,7 @@ async function startSorting()
 			if (e.cur >= 0) bars[e.cur].classList.add("selected");
 			if (e.next >= 0) bars[e.next].classList.add("selected");
 
-			if (result.get(i).desc === "swap")
+			if (e.desc === "swap")
 			{
 				const temp = bars[e.cur].style.height;
 				bars[e.cur].style.height = bars[e.next].style.height;
@@ -134,9 +134,9 @@ async function startSorting()
 	finally
 	{
 		sorted = true;
-		input.delete();
-		result.delete();
 		newBtn.disabled = false;
 		resetBtn.disabled = false;
+		input.delete();
+		if (result) result.delete();
 	}
 }
