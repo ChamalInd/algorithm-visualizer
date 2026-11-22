@@ -30,7 +30,7 @@ select:focus, select:hover, button:hover:not(:disabled)
 button
 {
 	margin: 0 0 20px 20px;
-	width: calc(100% - 40px);
+	width: calc(50% - 30px);
 	height: 60px;
 	border-radius: 20px;
 	text-align: center;
@@ -80,6 +80,13 @@ input[type="range"]
 	font-size: 30px;
 	text-align: center;
 	padding: 30px 0 20px 0;
+}
+
+#btn-group
+{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
 }
 
 .select-box
@@ -150,8 +157,14 @@ button, .select-box select
 		font-size: 25px;
 	}
 
+	#btn-group
+	{
+		flex-direction: column;
+	}
+
 	button
 	{
+		width: calc(100% - 40px);
 		height: 35px;
 	}
 	
