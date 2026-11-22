@@ -52,7 +52,7 @@ algorithm-visualizer/
 
 - [Emscripten](https://emscripten.org/) (provides `emcc`, `em++` and `emcmake`)
 - [CMake](https://cmake.org/) 3.16 or newer
-- Python 3 (only used to serve the page locally)
+- [Python](https://www.python.org/) 3 (only used to serve the page locally)
 - A modern browser
 
 ## Building
