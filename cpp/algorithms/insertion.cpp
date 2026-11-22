@@ -2,36 +2,25 @@
 
 std::vector<Events> insertionSort(std::vector<int>& array)
 {
-	std::vector<Events> events;
-	int step = 1;
-	
+	Record rec;	
 	for (size_t i = 1; i < array.size(); i++)
 	{
 		size_t j;
 
 		for (j = i; j > 0; j--)
 		{
-			Events newEvent;
-			newEvent.step = step++;
-			newEvent.desc = "noswap";
-			newEvent.prev = j > 0 ? j - 1 : 0;
-			newEvent.cur = static_cast<int>(j - 1);
-			newEvent.next = static_cast<int>(j);
-
+		
 			if (array[j] < array[j - 1]) 
 			{
-				int temp = array[j];
-				array[j] = array[j - 1];
-				array[j - 1] = temp;
-				newEvent.desc = "swap";
-				events.push_back(newEvent);
+				rec.add("swap", j > 0 ? j - 1 : 0, static_cast<int>(j - 1), static_cast<int>(j));
+				std::swap(array[j], array[j - 1]);
 			}
 			else
 			{
-				events.push_back(newEvent);
+				rec.add("noswap", j > 0 ? j - 1 : 0, static_cast<int>(j - 1), static_cast<int>(j));
 			}
 		}
 	}
 
-	return events;
+	return rec.events;
 }

@@ -134,6 +134,10 @@ async function startSorting()
 		{
 			result = Module.insertionSort(input);
 		}
+		else if (algorithm === "quickSort")
+		{
+			result = Module.quickSort(input);
+		}
 
 		for (let i = 0; i < result.size(); i++)
 		{

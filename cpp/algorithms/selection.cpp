@@ -2,9 +2,7 @@
 
 std::vector<Events> selectionSort(std::vector<int>& array)
 {
-	std::vector<Events> events;
-	int step = 1;
-	
+	Record rec;
 	for (size_t i = 0; i < array.size() - 1; i++)
 	{
 		int min = array[i];
@@ -13,13 +11,7 @@ std::vector<Events> selectionSort(std::vector<int>& array)
 
 		for (j = i + 1; j < array.size(); j++)
 		{
-			Events newEvent;
-			newEvent.step = step++;
-			newEvent.desc = "noswap";
-			newEvent.prev = j > 0 ? j - 1 : 0;
-			newEvent.cur = static_cast<int>(i);
-			newEvent.next = static_cast<int>(j);
-			events.push_back(newEvent);
+			rec.add("noswap", j > 0 ? j - 1 : 0, static_cast<int>(i), static_cast<int>(j));
 
 			if (array[j] < min) 
 			{
@@ -27,29 +19,19 @@ std::vector<Events> selectionSort(std::vector<int>& array)
 				index = j;
 			}		
 		}
-		Events newEvent;
-		newEvent.step = step++;
-		newEvent.desc = "noswap";
-		newEvent.prev = static_cast<int>(j - 1);
-		newEvent.cur = static_cast<int>(i);
-		newEvent.next = index;
 		
 		if (index != static_cast<int>(i))
 		{
-			int temp = array[i];
-			array[i] = array[index];
-			array[index] = temp;
-			newEvent.desc = "swap";
+			rec.add("swap", static_cast<int>(j - 1), static_cast<int>(i), index);
+			std::swap(array[i], array[index]);
 		}
-		events.push_back(newEvent);
+		else
+		{
+			rec.add("noswap", static_cast<int>(j - 1), static_cast<int>(i), index);
+		}
 		
-		newEvent.step = step++;
-		newEvent.desc = "noswap";
-		newEvent.prev = (index != static_cast<int>(i)) ? index : -1;
-		newEvent.cur = -1;
-		newEvent.next = -1;
-		events.push_back(newEvent);
+		rec.add("noswap", (index != static_cast<int>(i)) ? index : -1, -1, -1);
 	}
 
-	return events;
+	return rec.events;
 }
