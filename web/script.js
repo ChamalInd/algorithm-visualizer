@@ -2,6 +2,7 @@ let Module;
 let array = [];
 let size = 0;
 let sorted = true;
+let resetted = true;
 
 async function initializeEngine()
 {
@@ -29,6 +30,7 @@ function generateRandomArray()
 
 function renderBars()
 {
+	if (!sorted) return;
 	const container = document.getElementById("bar-container");
 	const bars = [];
 	container.innerHTML = "";
@@ -42,13 +44,13 @@ function renderBars()
 
 		container.appendChild(bar);
 		bars.push(bar);
+
+		requestAnimationFrame(() => {
+			bar.style.height = `${array[i] * 6}px`;
+		});
 		
 	}
-	
-	return new Promise(resolve => requestAnimationFrame(() => {
-		for (let i = 0; i < size; i++) bars[i].style.height = `${array[i] * 6}px`;
-		resolve();
-	}));
+	resetted = true;
 }
 
 const speedSlider = document.getElementById("speed");
@@ -68,8 +70,10 @@ async function startSorting()
 	if (!Module) return;
 	if (array.length === 0) return;
 	if (!sorted) return;
+	if (!resetted) return;
 
 	sorted = false;
+	resetted = false;
 
 	const input = new Module.InpVec();
 	for (let i = 0; i < size; i++)
@@ -77,7 +81,7 @@ async function startSorting()
 		input.push_back(array[i]);
 	}
 
-	const delay = 2000 - ((Number(speedSlider.value) - 5) / (100 - 5)) * (2000 - 10);
+	const delay = 2000 - ((Number(speedSlider.value) - 5) / (100 - 5)) * (2000 - 1);
 
 	const algorithm = document.getElementById("algo").value;
 	let result;
