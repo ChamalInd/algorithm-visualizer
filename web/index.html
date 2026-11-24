@@ -9,35 +9,47 @@
 		<link rel="stylesheet" href="styles.css">
 	</head>
 	<body>
+		<div id=top-bar>
+			<p id="title">Algorithm Visualizer</p>
+			<ul>
+				<li><a href="index.html" id="current">Sorting</a></li>
+				<li><a href="search.html">Searching</a></li>
+			</ul>
+		</div>
+
 		<div id="container">
-			<div id="left">
-				<label>Algorithm Visualizer</label><br>
-				<label for="algo">Sorting Algorithm:</label><br>
-				<div class="select-box">
-					<select id="algo" name="algo">
-						<option value="bubbleSort">Bubble Sort</option>
-						<option value="selectionSort">Selection Sort</option>
-						<option value="insertionSort">Insertion Sort</option>
-						<option value="quickSort">Quick Sort</option>
-						<option value="mergeSort">Merge Sort</option>
-					</select>
+			<div id="top">
+				<div id="bar-container"></div>
+			</div>
+			<div id="bottom">
+				<div id="algo-group">
+					<label for="algo">Algorithm</label>
+					<div class="select-box">
+						<select id="algo" name="algo">
+							<option value="bubbleSort">Bubble Sort</option>
+							<option value="selectionSort">Selection Sort</option>
+							<option value="insertionSort">Insertion Sort</option>
+							<option value="quickSort">Quick Sort</option>
+							<option value="mergeSort">Merge Sort</option>
+						</select>
+					</div>
 				</div>
-				
-				<label for="size">Array Size: <span id="sizeText">10</span></label><br>
-				<input type="range" id="size" min="5" max="100" step="1" value="10">
-				
-				<label for="speed">Animation Speed: <span id="speedText">50</span></label><br>
-				<input type="range" id="speed" min="5" max="100" step="5" value="50">
-				
+
+				<div id="slider-group">
+					<div>
+						<label for="size">Size <span id="sizeText">10</span></label><br>
+						<input type="range" id="size" min="5" max="100" step="1" value="10">
+					</div>
+					<div>
+						<label for="speed">Speed <span id="speedText">50</span></label><br>
+						<input type="range" id="speed" min="5" max="100" step="5" value="50">
+					</div>
+				</div>
+
 				<div id="btn-group">
 					<button id="new" onclick="generateRandomArray()">New Array</button>
-					<button id="reset" onclick="renderBars()">Reset</button>
-					<button id="stop" onclick="stopSorting()" disabled>Stop</button>
 					<button id="sort" onclick="startSorting()">Sort</button>
 				</div>
-			</div>
-			<div id="right">
-				<div id="bar-container"></div>
 			</div>
 		</div>
 		<script src="script.js"></script>

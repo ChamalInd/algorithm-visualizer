@@ -2,14 +2,10 @@ let Module;
 let array = [];
 let size = 0;
 let sorted = true;
-let resetted = true;
 let wakeUp = null;
 let stopSignal = false;
 
 const newBtn = document.getElementById("new");
-const resetBtn = document.getElementById("reset");
-const stopBtn = document.getElementById("stop");
-const sortBtn = document.getElementById("sort");
 
 // initialize the c++ engine
 async function initializeEngine()
@@ -58,8 +54,6 @@ function generateRandomArray()
 
 function renderBars()
 {
-	if (!sorted) return;
-	sortBtn.disabled = false;
 	const container = document.getElementById("bar-container");
 	container.innerHTML = "";
 
@@ -77,7 +71,6 @@ function renderBars()
 		});
 		
 	}
-	resetted = true;
 }
 
 // display an array on load
@@ -96,16 +89,13 @@ async function startSorting()
 	if (!Module) return;
 	if (array.length === 0) return;
 	if (!sorted) return;
-	if (!resetted) return;
+
+	if (!stopSignal) stopSorting();
 
 	sorted = false;
-	resetted = false;
 	stopSignal = false;
 	
 	newBtn.disabled = true;
-	stopBtn.disabled = false;
-	resetBtn.disabled = true;
-	sortBtn.disabled = true;
 
 	const algorithm = document.getElementById("algo").value;
 	const bars = document.getElementById("bar-container").children; 
@@ -178,8 +168,6 @@ async function startSorting()
 		sorted = true;
 		stopSignal = false;
 		newBtn.disabled = false;
-		stopBtn.disabled = true;
-		resetBtn.disabled = false;
 		input.delete();
 		if (result) result.delete();
 	}
