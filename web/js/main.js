@@ -1,6 +1,6 @@
 import { initializeEngine } from "./module.js";
 import { setupSliders, generateRandomArray } from "./ui.js";
-import { startSorting, stopSorting, shuffleBars } from "./sorting.js";
+import { startSorting, shuffleBars } from "./sorting.js";
 
 initializeEngine();
 setupSliders();

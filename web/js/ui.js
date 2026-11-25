@@ -20,7 +20,6 @@ export function setupSliders()
 
 export function renderBars() 
 {
-	state.clickCount = 0;
 	container.innerHTML = "";
 
 	for (let i = 0; i < state.size; i++) 

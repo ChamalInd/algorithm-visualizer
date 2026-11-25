@@ -6,13 +6,6 @@ import {
 	renderBars, generateRandomArray,
 } from "./ui.js";
 
-export function stopSorting() 
-{
-	if (state.sorted) return;
-  	state.stopSignal = true;
-	if (state.wakeUp) state.wakeUp();
-}
-
 export function shuffleBars() 
 {
 	if (!state.sorted) return;
@@ -27,17 +20,11 @@ function getDelay()
 
 export async function startSorting() 
 {
-	state.clickCount++;
-
-	if (state.clickCount === 2) stopSorting();
-	if (state.clickCount > 2) return;
-
 	if (!state.module) return;
 	if (state.array.length === 0) return;
 	if (!state.sorted) return;
 
 	state.sorted = false;
-	state.stopSignal = false;
 	newBtn.disabled = true;
 
 	const algorithm = document.getElementById("algo").value;
@@ -72,21 +59,14 @@ export async function startSorting()
       		}
 
       		await sleep(delay);
-      		if (state.stopSignal) break;
-    	}
-
-		if (!state.stopSignal) 
-		{
-      		for (const bar of bars) bar.classList.add("selected");
-    	}
+		}
+      	for (const bar of bars) bar.classList.add("selected");
 	} 
 	finally 
 	{
 		state.sorted = true;
-		state.stopSignal = false;
     	newBtn.disabled = false;
     	input.delete();
     	if (result) result.delete();
-    	if (state.clickCount === 2) renderBars();
 	}
 }
