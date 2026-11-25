@@ -146,6 +146,8 @@ button:disabled
 
 .bar
 {
+	height: 0;
+	width: 100%;
 	background-color: #2C303A;
 	border-radius: 5px 5px 0 0;
 	transition: height 0.5s ease, background-color 0.2s ease;

@@ -26,8 +26,7 @@ export function renderBars()
 	{
 		const bar = document.createElement("div");
 		bar.classList.add("bar");
-		bar.style.height = "0px";
-		bar.style.width = `${100 / state.size}%`;
+
 		container.appendChild(bar);
 
 		requestAnimationFrame(() => {

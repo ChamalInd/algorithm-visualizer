@@ -43,8 +43,9 @@ export async function startSorting()
 		for (let i = 0; i < result.size(); i++) 
 		{
 			const e = result.get(i);
+
 			if (e.prev >= 0) bars[e.prev].classList.remove("selected");
-			if (e.cur >= 0) bars[e.cur].classList.add("selected");
+			if (e.cur >= 0)  bars[e.cur].classList.add("selected");
 			if (e.next >= 0) bars[e.next].classList.add("selected");
 
 			if (e.desc === "swap") 
