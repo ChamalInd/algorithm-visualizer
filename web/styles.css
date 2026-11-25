@@ -275,6 +275,11 @@ button:disabled
 	{
 		height: calc(100vh - 80px);
 	}
+
+	button
+	{
+		height: 50px;
+	}
 }
 
 @media (min-width: 1200px)
