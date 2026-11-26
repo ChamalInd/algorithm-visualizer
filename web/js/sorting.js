@@ -2,9 +2,22 @@ import { state } from "./state.js";
 import { runAlgorithm } from "./module.js";
 import { sleep } from "./utils.js";
 import {
-	container, newBtn, speedSlider,
+	container, sortBtn, shuffleBtn, speedSlider,
 	renderBars, generateRandomArray,
 } from "./ui.js";
+
+function setButtonState(running)
+{
+	sortBtn.textContent = running ? "Stop" : "Sort";
+	sortBtn.classList.toggle("stop", running);
+}
+
+export function toggleSortStop()
+{
+	console.log("visited");
+	if (state.sorted) startSorting();
+	else stopSorting();
+}
 
 export function shuffleBars() 
 {
@@ -18,14 +31,25 @@ function getDelay()
 	return 2000 - ((Number(speedSlider.value) - 5) / (100 - 5)) * (2000 - 1);
 }
 
-export async function startSorting() 
+function stopSorting()
 {
+	if (state.sorted) return;
+	state.stopSignal = true;
+	if (state.wakeUp) state.wakeUp();
+}
+
+async function startSorting() 
+{
+	console.log("visited");
 	if (!state.module) return;
-	if (state.array.length === 0) return;
 	if (!state.sorted) return;
+	if (state.array.length === 0) return;
 
 	state.sorted = false;
-	newBtn.disabled = true;
+	state.stopSignal = false;
+	shuffleBtn.disabled = true;
+
+	setButtonState(true);
 
 	const algorithm = document.getElementById("algo").value;
 	const bars = container.children;
@@ -60,14 +84,25 @@ export async function startSorting()
       		}
 
       		await sleep(delay);
+			if (state.stopSignal) break;
 		}
-      	for (const bar of bars) bar.classList.add("selected");
+      	
+		if (!state.stopSignal)
+		{
+			for (const bar of bars) bar.classList.add("selected");
+		}
 	} 
 	finally 
 	{
+		const stopped = state.stopSignal;
 		state.sorted = true;
-    	newBtn.disabled = false;
+		state.stopSignal = false;
+		state.wakeUp = null; 
+    	shuffleBtn.disabled = false;
     	input.delete();
     	if (result) result.delete();
+
+		setButtonState(false);
+		if (stopped) renderBars();
 	}
 }

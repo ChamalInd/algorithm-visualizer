@@ -1,11 +1,10 @@
 import { initializeEngine } from "./module.js";
 import { setupSliders, generateRandomArray } from "./ui.js";
-import { startSorting, shuffleBars } from "./sorting.js";
+import { toggleSortStop, shuffleBars } from "./sorting.js";
 
 initializeEngine();
 setupSliders();
 generateRandomArray();
 
-// adjust these ids to match your HTML
-document.getElementById("new").addEventListener("click", shuffleBars);
-document.getElementById("sort").addEventListener("click", startSorting);
+document.getElementById("shuffleBtn").addEventListener("click", shuffleBars);
+document.getElementById("sortBtn").addEventListener("click", toggleSortStop);

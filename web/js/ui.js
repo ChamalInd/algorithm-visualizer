@@ -1,7 +1,8 @@
 import { state } from "./state.js";
 
 export const container = document.getElementById("bar-container");
-export const newBtn = document.getElementById("new");
+export const shuffleBtn = document.getElementById("shuffleBtn");
+export const sortBtn = document.getElementById("sortBtn");
 export const speedSlider = document.getElementById("speed");
 export const sizeSlider = document.getElementById("size");
 

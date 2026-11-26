@@ -4,4 +4,6 @@ export const state =
 	array: [],
 	size: 0,
 	sorted: true,
+	wakeUp: null,
+	stopSignal: false
 };

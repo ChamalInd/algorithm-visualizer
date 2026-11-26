@@ -44,8 +44,6 @@ button
 
 button:disabled
 {
-	background: #aaaaaa;
-	color: white;
 	cursor: not-allowed;
 }
 
@@ -234,7 +232,7 @@ button:disabled
 	width: 100%;
 }
 
-#new
+.shuffle
 {
 	margin: 0 20px 0 6px;
 	color: white;
@@ -242,12 +240,24 @@ button:disabled
 	background-color: #16181D;
 }
 
-#sort
+.shuffle:disabled
+{
+	color: #6E7073;
+}
+
+.sort
 {
 	margin: 0 6px 0 20px;
 	color: #0C101F;
 	border: 2.5px solid #21232A;
 	background-color: #82A1F8;
+}
+
+.stop
+{
+	background-color: #271618;
+	color: #F48C95;
+	border: 2.5px solid #632E33;
 }
 
 

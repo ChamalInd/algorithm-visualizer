@@ -6,7 +6,6 @@ export async function initializeEngine()
 	console.log("C++ engine loaded.");
 }
 
-// replaces the long if/else chain
 export function runAlgorithm(name, input) 
 {
 	const fn = state.module[name];  
