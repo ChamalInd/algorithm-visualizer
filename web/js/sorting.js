@@ -14,7 +14,6 @@ function setButtonState(running)
 
 export function toggleSortStop()
 {
-	console.log("visited");
 	if (state.sorted) startSorting();
 	else stopSorting();
 }
@@ -40,7 +39,6 @@ function stopSorting()
 
 async function startSorting() 
 {
-	console.log("visited");
 	if (!state.module) return;
 	if (!state.sorted) return;
 	if (state.array.length === 0) return;

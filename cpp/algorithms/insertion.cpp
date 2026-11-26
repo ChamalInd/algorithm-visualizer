@@ -18,6 +18,7 @@ std::vector<Events> insertionSort(std::vector<int>& array)
 			else
 			{
 				rec.add("noswap", j > 0 ? j - 1 : 0, static_cast<int>(j - 1), static_cast<int>(j));
+				break;
 			}
 		}
 	}

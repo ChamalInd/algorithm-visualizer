@@ -15,6 +15,7 @@ EMSCRIPTEN_BINDINGS(module)
 	emscripten::function("bubbleSort", &bubbleSort);
 	emscripten::function("selectionSort", &selectionSort);
 	emscripten::function("insertionSort", &insertionSort);
+	emscripten::function("shellSort", &shellSort);
 	emscripten::function("quickSort", &quickSort);
 	emscripten::function("mergeSort", &mergeSort);
 }

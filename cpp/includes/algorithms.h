@@ -36,6 +36,7 @@ struct Record
 std::vector<Events> bubbleSort(std::vector<int>& array);
 std::vector<Events> selectionSort(std::vector<int>& array);
 std::vector<Events> insertionSort(std::vector<int>& array);
+std::vector<Events> shellSort(std::vector<int>& array);
 std::vector<Events> quickSort(std::vector<int>& array);
 std::vector<Events> mergeSort(std::vector<int>& array);
 
