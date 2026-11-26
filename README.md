@@ -11,6 +11,7 @@ https://github.com/user-attachments/assets/a1a1f3d5-eb08-4ac6-b862-a0871a0c7060
 - Bubble sort
 - Selection sort
 - Insertion sort
+- Shell sort
 - Quick sort
 - Merge sort
 
@@ -21,8 +22,7 @@ https://github.com/user-attachments/assets/a1a1f3d5-eb08-4ac6-b862-a0871a0c7060
 | Algorithm | Picks which sort to run |
 | Animation speed | Sets the delay between steps |
 | Array size | Sets how many bars to generate |
-| New Array | Generates a new random array |
-| Reset | Puts the current array back to its unsorted state |
+| Shuffle | Generates a new random array or reset it to unsorted state |
 | Sort | Runs the selected algorithm |
 | Stop | Stops a running sort (use Reset or New Array afterwards) |
 
@@ -41,6 +41,7 @@ algorithm-visualizer/
 │       ├── bubble.cpp
 │       ├── selection.cpp
 │       ├── insertion.cpp
+│       ├── shell.cpp
 │       ├── quick.cpp
 │       └── merge.cpp
 └── web/
